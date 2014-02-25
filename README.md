@@ -1,4 +1,4 @@
-A repository containing starting points applicable to buidling desktop tools. Examples. 
+A repository containing code applicable to buidling desktop tools. Examples:
 
 ### Levenshtein Distance
 
