@@ -6,7 +6,7 @@ The Levenshtein distance between two words is the minimum number of single-chara
 
 http://en.wikipedia.org/wiki/Levenshtein_distance
 
-### BeautifulSoup
+### Beautiful Soup
 
 Beautiful Soup is a Python library for parsing HTML documents (including having malformed markup, i.e. non-closed tags, so named after Tag soup). It creates a parse tree for parsed pages that can be used to extract data from HTML, so this library is useful for web scraping — extracting data from websites.
 
