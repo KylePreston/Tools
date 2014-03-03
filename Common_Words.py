@@ -15,13 +15,13 @@ for line in shakes:
 			counts[word] += 1
 
 # Sorting the dictionary by value
-lst = list()
+List = list()
 for key, val in counts.items():
-	lst.append( (val, key) )
+	List.append((val, key))
 
-lst.sort(reverse = True)
+List.sort(reverse = True)
 
-for key, val in lst[:10]:
+for key, val in List[:10]:
 	print key, val
 
 shakes.close()
