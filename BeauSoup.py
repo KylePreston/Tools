@@ -1,3 +1,5 @@
+# An example of how easy Beautiful Soup is
+
 html_doc = """
 <html><head><title>The Dormouse's story</title></head>
 <body>
