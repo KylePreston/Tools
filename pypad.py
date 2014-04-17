@@ -3,6 +3,7 @@ import Tkinter as tk
 
 root = tk.Tk()
 root.title('PyPad')
+root.geometry('800x800')
 
 # Functions
 def new_file():
@@ -46,11 +47,11 @@ fileMenu = tk.Menu(menuBar)
 # Displays the column needed to see the add_commands
 menuBar.add_cascade(label='File', menu=fileMenu)
 fileMenu.add_command(label='New', accelerator='Command+N', compound=tk.LEFT,
-					 image=newicon, underline=0, command=new_file)
+		     image=newicon, underline=0, command=new_file)
 fileMenu.add_command(label='Open', accelerator='Command+O', compound=tk.LEFT,
-					 image=openicon, underline=0, command=open_file)
+		     image=openicon, underline=0, command=open_file)
 fileMenu.add_command(label='Save', accelerator='Command-S', compound=tk.LEFT,
-					 image=saveicon, underline=0, command=save_file)
+		     image=saveicon, underline=0, command=save_file)
 fileMenu.add_command(label='Save as', accelerator='Shift+Command+S', command=save_file_as)
 fileMenu.add_separator()
 fileMenu.add_command(label='Exit', accelerator='Command+W', command=exit_program)
@@ -59,7 +60,7 @@ fileMenu.add_command(label='Exit', accelerator='Command+W', command=exit_program
 editMenu = tk.Menu(menuBar)
 menuBar.add_cascade(label='Edit', menu=editMenu)
 editMenu.add_command(label='Undo', accelerator='Command+Z', compound=tk.LEFT,
-					 image=undoicon, underline=0, command=undo_action)
+					image=undoicon, underline=0, command=undo_action)
 editMenu.add_command(label='Redo', accelerator='Shift-Command+S', compound=tk.LEFT,
 					 image=redoicon, underline=0, command=redo_action)
 editMenu.add_command(label='Cut', accelerator='Command+X', compound=tk.LEFT,
@@ -106,9 +107,15 @@ menuBar.add_cascade(label='About', menu=aboutMenu)
 aboutMenu.add_command(label='About')
 aboutMenu.add_command(label='Help')
 
-# Create the text box
+# The text box
 textPad = tk.Text(root)
 textPad.pack(expand=tk.YES, fill=tk.BOTH)
+
+# The scroll bar, whose parent is textPad
+scrollBar = tk.Scrollbar(textPad)
+textPad.configure(yscrollcommand=scrollBar.set)
+# need to dispaly the scroll bar
+scrollBar.pack(side=tk.RIGHT, fill=tk.Y)
 # Display the menu bar
 root.config(menu=menuBar)
 root.mainloop()
