@@ -17,13 +17,15 @@ def save_file_as():
 def exit_program():
 	pass
 def undo_action():
-	pass
+	textPad.event_generate('<<Undo>>')
 def redo_action():
-	pass
+	textPad.event_generate('<<Redo>>')
 def cut_action():
-	pass
+	textPad.event_generate('<<Cut>>')
 def copy_action():
-	pass
+	textPad.event_generate('<<Copy>>')
+def paste_action():
+	textPad.event_generate('<<Paste>>')
 def find_action():
 	pass
 def selectAll_action():
@@ -37,6 +39,7 @@ undoicon = tk.PhotoImage(file='icons/undo.gif')
 redoicon = tk.PhotoImage(file='icons/redo.gif')
 cuticon = tk.PhotoImage(file='icons/sting.gif')
 copyicon = tk.PhotoImage(file='icons/copy.gif')
+pasteicon = tk.PhotoImage(file='icons/paste.gif')
 
 # Create a main row for the menu
 menuBar = tk.Menu(root)
@@ -61,12 +64,14 @@ editMenu = tk.Menu(menuBar)
 menuBar.add_cascade(label='Edit', menu=editMenu)
 editMenu.add_command(label='Undo', accelerator='Command+Z', compound=tk.LEFT,
 					image=undoicon, underline=0, command=undo_action)
-editMenu.add_command(label='Redo', accelerator='Shift-Command+S', compound=tk.LEFT,
+editMenu.add_command(label='Redo', accelerator='Shift-Command+Z', compound=tk.LEFT,
 					 image=redoicon, underline=0, command=redo_action)
 editMenu.add_command(label='Cut', accelerator='Command+X', compound=tk.LEFT,
 					 image=cuticon, underline=0, command=cut_action)
 editMenu.add_command(label='Copy', accelerator='Command-C', compound=tk.LEFT,
 					 image=copyicon, underline=0, command=copy_action)
+editMenu.add_command(label='Paste', accelerator='Command+V', compound=tk.LEFT,
+					 image=pasteicon, command=paste_action)
 editMenu.add_separator()
 editMenu.add_command(label='Find', accelerator='Command+F', command=find_action)
 editMenu.add_command(label='Select all', accelerator='Command+A', command=selectAll_action)
@@ -116,7 +121,7 @@ lineLabelBar = tk.Label(root, width=2, bg='antique white')
 lineLabelBar.pack(side=tk.LEFT, anchor='nw', fill=tk.Y)
 
 # The text box
-textPad = tk.Text(root)
+textPad = tk.Text(root, font='Helvetica', undo=True)
 textPad.pack(expand=tk.YES, fill=tk.BOTH)
 
 # The scroll bar, whose parent is textPad
