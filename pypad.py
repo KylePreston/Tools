@@ -47,11 +47,11 @@ fileMenu = tk.Menu(menuBar)
 # Displays the column needed to see the add_commands
 menuBar.add_cascade(label='File', menu=fileMenu)
 fileMenu.add_command(label='New', accelerator='Command+N', compound=tk.LEFT,
-		     image=newicon, underline=0, command=new_file)
+					 image=newicon, underline=0, command=new_file)
 fileMenu.add_command(label='Open', accelerator='Command+O', compound=tk.LEFT,
-		     image=openicon, underline=0, command=open_file)
+					 image=openicon, underline=0, command=open_file)
 fileMenu.add_command(label='Save', accelerator='Command-S', compound=tk.LEFT,
-		     image=saveicon, underline=0, command=save_file)
+					 image=saveicon, underline=0, command=save_file)
 fileMenu.add_command(label='Save as', accelerator='Shift+Command+S', command=save_file_as)
 fileMenu.add_separator()
 fileMenu.add_command(label='Exit', accelerator='Command+W', command=exit_program)
@@ -106,6 +106,14 @@ aboutMenu = tk.Menu(menuBar)
 menuBar.add_cascade(label='About', menu=aboutMenu)
 aboutMenu.add_command(label='About')
 aboutMenu.add_command(label='Help')
+
+# The top shortcut bar
+shortcutBar = tk.Frame(root, height=64, bg='#019875')
+shortcutBar.pack(expand=tk.NO, fill=tk.X)
+
+# Line label bar
+lineLabelBar = tk.Label(root, width=2, bg='antique white')
+lineLabelBar.pack(side=tk.LEFT, anchor='nw', fill=tk.Y)
 
 # The text box
 textPad = tk.Text(root)
