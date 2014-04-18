@@ -16,6 +16,16 @@ def save_file_as():
 	pass
 def exit_program():
 	pass
+def find_action():
+	t2 = tk.Toplevel(root)
+	t2.title('Find Text')
+	t2.geometry('400x150')
+	# Make sure the window is drawn on top of the root window with transient
+	t2.transient(root)
+def selectAll_action():
+	textPad.tag_add('sel', '1.0', 'end')
+
+# Built in Tkinter Event Generators
 def undo_action():
 	textPad.event_generate('<<Undo>>')
 def redo_action():
@@ -26,10 +36,6 @@ def copy_action():
 	textPad.event_generate('<<Copy>>')
 def paste_action():
 	textPad.event_generate('<<Paste>>')
-def find_action():
-	pass
-def selectAll_action():
-	pass
 
 # Define your image icons
 newicon = tk.PhotoImage(file='icons/newfile.gif')
@@ -73,7 +79,7 @@ editMenu.add_command(label='Copy', accelerator='Command-C', compound=tk.LEFT,
 editMenu.add_command(label='Paste', accelerator='Command+V', compound=tk.LEFT,
 					 image=pasteicon, command=paste_action)
 editMenu.add_separator()
-editMenu.add_command(label='Find', accelerator='Command+F', command=find_action)
+editMenu.add_command(label='Find', accelerator='Command+F', underline=0, command=find_action)
 editMenu.add_command(label='Select all', accelerator='Command+A', command=selectAll_action)
 
 # View Menu
@@ -121,7 +127,7 @@ lineLabelBar = tk.Label(root, width=2, bg='antique white')
 lineLabelBar.pack(side=tk.LEFT, anchor='nw', fill=tk.Y)
 
 # The text box
-textPad = tk.Text(root, font='Helvetica', undo=True)
+textPad = tk.Text(root, font='Helvetica', undo=True, selectforeground='White', selectbackground='#019875')
 textPad.pack(expand=tk.YES, fill=tk.BOTH)
 
 # The scroll bar, whose parent is textPad
@@ -129,6 +135,7 @@ scrollBar = tk.Scrollbar(textPad)
 textPad.configure(yscrollcommand=scrollBar.set)
 # need to dispaly the scroll bar
 scrollBar.pack(side=tk.RIGHT, fill=tk.Y)
+
 # Display the menu bar
 root.config(menu=menuBar)
 root.mainloop()
