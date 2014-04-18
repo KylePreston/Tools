@@ -2,7 +2,7 @@ A repository containing code applicable to buidling desktop tools. Examples:
 
 ### PyPad
 
-PyPad is a word processing program (textpad on steroids) that I made while teaching myself Tkinter. 
+PyPad is a word processing program (textpad on steroids) that I made while teaching myself Tkinter. It currently only runs properly on Mac!  
 
 http://infohost.nmt.edu/tcc/help/pubs/tkinter/web/index.html
 
