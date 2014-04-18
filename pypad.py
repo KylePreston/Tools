@@ -16,12 +16,50 @@ def save_file_as():
 	pass
 def exit_program():
 	pass
+
 def find_action():
 	t2 = tk.Toplevel(root)
 	t2.title('Find Text')
-	t2.geometry('400x150')
+	t2.geometry('400x100')
 	# Make sure the window is drawn on top of the root window with transient
 	t2.transient(root)
+	tk.Label(t2, text='Find All:').grid(row=0, column=0, sticky='e')
+	v = tk.StringVar()
+	search_phrase_box = tk.Entry(t2, width=25, textvariable=v)
+	search_phrase_box.grid(row=0, column=1, padx=2, sticky='we')
+	# Shift the cursor's focus to the new Entry widget
+	search_phrase_box.focus_set()
+	search_phrase_box.insert(0, 'Type search here!')
+
+
+	c = tk.IntVar()
+	tk.Checkbutton(t2, text='Ignore Case', variable=c).grid(row=1, column=1,
+				   sticky='e', padx=2, pady=2)
+	tk.Button(t2, text='Find All', underline=0, command=lambda: search_for(v.get(), 
+			  c.get(), textPad, t2, search_phrase_box)).grid(
+			  row=0, column=2, sticky='e'+'w', padx=2, pady=2)
+	def close_search():
+		textPad.tag_remove('match', '1.0', tk.END)
+		t2.destroy()
+	# Override the close button
+	t2.protocol('WM_DELETE_WINDOW', close_search)
+
+def search_for(needle,cssnstv, textPad, t2,e) :
+        textPad.tag_remove('match', '1.0', tk.END)
+        count =0
+        if needle:
+                position = '1.0'
+                while True:
+                    position = textPad.search(needle, position, nocase=cssnstv, stopindex=tk.END)
+                    if not position: break
+                    lastposition = '%s+%dc' % (position, len(needle))
+                    textPad.tag_add('match', position, lastposition)
+                    count += 1
+                    position = lastposition
+                textPad.tag_config('match', foreground='yellow', background='#019875')
+        e.focus_set()
+        t2.title('%d matches found' %count)
+
 def selectAll_action():
 	textPad.tag_add('sel', '1.0', 'end')
 
