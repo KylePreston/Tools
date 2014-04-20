@@ -8,14 +8,15 @@ root.title('PyPad')
 root.geometry('800x800')
 
 # Functions
-def new_file():
+def new_file(event=None):
 	pass
-def open_file():
+def open_file(event=None):
 	'''Open a text file '''
 
 	global filename
-	filename = tkFileDialog.askopenfilename(defaultextension='.txt', filetypes=[('All Files','*.*'),
-						('Text Documents','*.txt')])
+	filename = tkFileDialog.askopenfilename(defaultextension='.txt',
+											filetypes=[('All Files','*.*'),
+											('Text Documents','*.txt')])
 	# If no file chosen
 	if filename == '':
 		filename = None
@@ -27,7 +28,7 @@ def open_file():
 		textPad.insert(1.0, chosen_file.read())
 		chosen_file.close()
 
-def save_file():
+def save_file(event=None):
 	'''Save a file '''
 
 	global filename
@@ -40,12 +41,14 @@ def save_file():
 	except:
 		save_file_as()
 
-def save_file_as():
+def save_file_as(event=None):
 	'''Save a file as you want '''
 
 	try:
-		f = tkFileDialog.asksaveasfilename(initialfile='Untitled.txt', defaultextension='*.txt',
-						   filetypes=[('All Files', '*.*'),('Text Documents', '*.txt')])
+		f = tkFileDialog.asksaveasfilename(initialfile='Untitled.txt',
+										   defaultextension='*.txt',
+										   filetypes=[('All Files', '*.*'),
+										   ('Text Documents', '*.txt')])
 		fh = open(f, 'w')
 		written_text = textPad.get(1.0, tk.END)
 		fh.write(written_text)
@@ -54,7 +57,7 @@ def save_file_as():
 	except:
 		pass
 
-def exit_program():
+def exit_program(event=None):
 	pass
 
 def find_action():
@@ -98,7 +101,7 @@ def search_for(needle,cssnstv, textPad, t2,e) :
         e.focus_set()
         t2.title('%d found' % count)
 
-def selectAll_action():
+def selectAll_action(event=None):
 	textPad.tag_add('sel', '1.0', 'end')
 
 # Built in Tkinter Event Generators
@@ -212,6 +215,9 @@ textPad.configure(yscrollcommand=scrollBar.set)
 # need to dispaly the scroll bar
 scrollBar.pack(side=tk.RIGHT, fill=tk.Y)
 
+# Event Bindings for keyboard shortcuts
+textPad.bind('<Command-A>', selectAll_action)
+textPad.bind('<Command-a>', selectAll_action)
 # Display the menu bar
 root.config(menu=menuBar)
 root.mainloop()
