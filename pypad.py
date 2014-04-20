@@ -9,7 +9,11 @@ root.geometry('800x800')
 
 # Functions
 def new_file(event=None):
-	pass
+	root.title('Untitled')
+	global filename
+	filename = None
+	textPad.delete(1.0, tk.END)
+
 def open_file(event=None):
 	'''Open a text file '''
 
@@ -218,6 +222,10 @@ scrollBar.pack(side=tk.RIGHT, fill=tk.Y)
 # Event Bindings for keyboard shortcuts
 textPad.bind('<Command-A>', selectAll_action)
 textPad.bind('<Command-a>', selectAll_action)
+textPad.bind('<Command-N>', new_file)
+textPad.bind('<Command-n>', new_file)
+textPad.bind('<Command-W>', exit_program)
+textPad.bind('<Command-w>', exit_program)
 # Display the menu bar
 root.config(menu=menuBar)
 root.mainloop()
