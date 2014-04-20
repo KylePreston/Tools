@@ -1,5 +1,7 @@
 # NOT READY FOR USE!!!!
 import Tkinter as tk
+import tkFileDialog
+import os
 
 root = tk.Tk()
 root.title('PyPad')
@@ -9,11 +11,49 @@ root.geometry('800x800')
 def new_file():
 	pass
 def open_file():
-	pass
+	'''Open a text file '''
+
+	global filename
+	filename = tkFileDialog.askopenfilename(defaultextension='.txt', filetypes=[('All Files','*.*'),
+						('Text Documents','*.txt')])
+	# If no file chosen
+	if filename == '':
+		filename = None
+	else:
+		# Return the basename of 'file'
+		root.title(os.path.basename(filename) + ' - PyPad')
+		textPad.delete(1.0, tk.END)
+		chosen_file = open(filename)
+		textPad.insert(1.0, chosen_file.read())
+		chosen_file.close()
+
 def save_file():
-	pass
+	'''Save a file '''
+
+	global filename
+
+	try:
+		f = open(filename, 'w')
+		words = textPad.get(1.0, 'end')
+		f.write(words)
+		f.close()
+	except:
+		save_file_as()
+
 def save_file_as():
-	pass
+	'''Save a file as you want '''
+
+	try:
+		f = tkFileDialog.asksaveasfilename(initialfile='Untitled.txt', defaultextension='*.txt',
+						   filetypes=[('All Files', '*.*'),('Text Documents', '*.txt')])
+		fh = open(f, 'w')
+		written_text = textPad.get(1.0, tk.END)
+		fh.write(written_text)
+		fh.close()
+		root.title(os.path.basename(f) + ' - PyPad')
+	except:
+		pass
+
 def exit_program():
 	pass
 
@@ -29,8 +69,6 @@ def find_action():
 	search_phrase_box.grid(row=0, column=1, padx=2, sticky='we')
 	# Shift the cursor's focus to the new Entry widget
 	search_phrase_box.focus_set()
-	search_phrase_box.insert(0, 'Type search here!')
-
 
 	c = tk.IntVar()
 	tk.Checkbutton(t2, text='Ignore Case', variable=c).grid(row=1, column=1,
@@ -58,7 +96,7 @@ def search_for(needle,cssnstv, textPad, t2,e) :
                     position = lastposition
                 textPad.tag_config('match', foreground='yellow', background='#019875')
         e.focus_set()
-        t2.title('%d matches found' %count)
+        t2.title('%d found' % count)
 
 def selectAll_action():
 	textPad.tag_add('sel', '1.0', 'end')
@@ -161,8 +199,8 @@ shortcutBar = tk.Frame(root, height=64, bg='#019875')
 shortcutBar.pack(expand=tk.NO, fill=tk.X)
 
 # Line label bar
-lineLabelBar = tk.Label(root, width=2, bg='antique white')
-lineLabelBar.pack(side=tk.LEFT, anchor='nw', fill=tk.Y)
+# lineLabelBar = tk.Label(root, width=1, bg='black')
+# lineLabelBar.pack(side=tk.LEFT, anchor='nw', fill=tk.Y)
 
 # The text box
 textPad = tk.Text(root, font='Helvetica', undo=True, selectforeground='White', selectbackground='#019875')
